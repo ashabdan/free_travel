@@ -40,8 +40,8 @@ class CustomUser(AbstractUser):
     objects = UserManager()
     username = models.CharField(max_length=255, blank=True)
     email = models.EmailField('email address', unique=True)
-    address = models.CharField(max_length=255)
-    phone = PhoneNumberField()
+    # address = models.CharField(max_length=255)
+    # phone = PhoneNumberField()
     is_active = models.BooleanField(
         _('active'),
         default=False,
