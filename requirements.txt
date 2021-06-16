@@ -1,0 +1,12 @@
+django
+djangorestframework
+djangorestframework-simplejwt
+drf-yasg
+pillow
+django-cors-headers
+celery
+redis
+python-decouple
+psycopg2-binary
+django-phonenumber-field[phonenumbers]
+django-ckeditor
