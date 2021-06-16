@@ -17,6 +17,9 @@ def upload_image_path(instance, filename):
 class Category(models.Model):
     name = models.CharField(max_length=150)
 
+    def __str__(self):
+        return self.name
+
     class Meta:
         verbose_name = 'category'
         verbose_name_plural = 'categories'
@@ -36,7 +39,7 @@ class Post(DataABC):
     owner = models.ForeignKey(CustomUser, related_name='posts',
                               on_delete=models.CASCADE)
     category = models.ForeignKey(Category, on_delete=models.CASCADE,
-                                 related_name='posts',  null=True)
+                                 related_name='posts')
     preview = models.ImageField(upload_to=upload_image_path)
     quantity = models.PositiveSmallIntegerField(default=1)
     address = models.CharField(max_length=255)
