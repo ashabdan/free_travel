@@ -33,6 +33,10 @@ INSTALLED_APPS = [
     'drf_yasg',
     'ckeditor_uploader',
     'phonenumber_field',
+    'django_filters',
+
+    'user',
+    'post',
 ]
 
 CKEDITOR_UPLOAD_PATH = 'uploads/'

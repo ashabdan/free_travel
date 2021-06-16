@@ -10,3 +10,4 @@ python-decouple
 psycopg2-binary
 django-phonenumber-field[phonenumbers]
 django-ckeditor
+django-filter
