@@ -65,3 +65,9 @@ class Comment(DataABC):
 
     def __str__(self):
         return f'{self.owner} -> {self.post} -> {self.created_at}'
+
+
+class Like(models.Model):
+    owner = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='likes')
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='likes')
+    like = models.BooleanField(default=False)
