@@ -37,6 +37,7 @@ INSTALLED_APPS = [
 
     'user',
     'post',
+    'trip',
 ]
 
 CKEDITOR_UPLOAD_PATH = 'uploads/'
