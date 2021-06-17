@@ -1,5 +1,4 @@
 from rest_framework import permissions
-from rest_framework.permissions import SAFE_METHODS
 
 
 class IsOwnerOrReadOnly(permissions.BasePermission):
@@ -7,3 +6,5 @@ class IsOwnerOrReadOnly(permissions.BasePermission):
         if request.method in permissions.SAFE_METHODS:
             return True
         return obj.owner == request.user
+
+
