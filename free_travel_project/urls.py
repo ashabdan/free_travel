@@ -7,6 +7,8 @@ from post.views import PostViewSet
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 
+from trip.views import TripViewSet
+
 schema_view = get_schema_view(
     info=openapi.Info(
         title='Free Travel',
@@ -23,6 +25,7 @@ schema_view = get_schema_view(
 
 router = DefaultRouter()
 router.register('posts', PostViewSet)
+router.register('trip', TripViewSet)
 
 
 urlpatterns = [
