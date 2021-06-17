@@ -6,6 +6,7 @@ from django.db import models
 from user.models import CustomUser
 
 
+
 def upload_image_path(instance, filename):
     print(instance, filename)
     new_name = random.randint(1000000, 9999999)
@@ -58,6 +59,7 @@ class Post(DataABC):
         return name, ext
 
 
+
 class Comment(DataABC):
     owner = models.ForeignKey(CustomUser, related_name='comments', on_delete=models.CASCADE)
     post = models.ForeignKey(Post, related_name='comments', on_delete=models.CASCADE)
@@ -65,3 +67,12 @@ class Comment(DataABC):
 
     def __str__(self):
         return f'{self.owner} -> {self.post} -> {self.created_at}'
+
+
+class Like(models.Model):
+    owner = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='likes')
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='likes')
+    like = models.BooleanField(default=False)
+
+    def __str__(self):
+        return f'{self.owner} - {self.post}'
