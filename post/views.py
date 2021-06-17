@@ -46,7 +46,7 @@ class PostViewSet(viewsets.ModelViewSet):
         search = self.request.query_params.get('search', '')
         if search:
             queryset = queryset.filter(
-                Q(title__icontains=search) | Q(description__icontains=search) | Q(address__icontains=search))
+                Q(title__icontains=search) | Q(id__icontains=search) | Q(address__icontains=search))
         return queryset
 
 

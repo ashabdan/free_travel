@@ -11,7 +11,6 @@ class CategorySerializer(serializers.ModelSerializer):
 
 
 class PostSerializer(serializers.ModelSerializer):
-    owner = serializers.ReadOnlyField(source='owner.username')
     comments = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
 
     class Meta:
@@ -30,7 +29,7 @@ class PostSerializer(serializers.ModelSerializer):
         if action == 'list':
             representation['likes'] = len(likes)
         if action == 'retrieve':
-            representation['likes'] = LikeSerializer(instance.likes.filter(like=True), many=True).data
+            representation['likes'] = likes
         return representation
 
 
