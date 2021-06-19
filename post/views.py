@@ -10,10 +10,10 @@ from django.db.models import Q
 
 
 class PostPagination(PageNumberPagination):
-    page_size = 10
+    page_size = 3
 
 class CommentPagination(PageNumberPagination):
-    page_size = 20
+    page_size = 5
 
 
 class PostViewSet(viewsets.ModelViewSet):
@@ -21,7 +21,8 @@ class PostViewSet(viewsets.ModelViewSet):
     serializer_class = serializers.PostSerializer
     pagination_class = PostPagination
     filter_backends = [filters.DjangoFilterBackend, ]
-    filterset_fields = ('category', 'owner', )
+    filterset_fields = ('category', )
+
     def get_permissions(self):
         if self.action == 'create':
             self.permission_classes = (permissions.IsAuthenticated, )
@@ -33,8 +34,8 @@ class PostViewSet(viewsets.ModelViewSet):
 
     @action(detail=True, methods=['post'])
     def like(self, request, pk=None):
-        product = self.get_object()
-        obj, created = Like.objects.get_or_create(user=request.user.profile_customer, product=product)
+        post = self.get_object()
+        obj, created = Like.objects.get_or_create(owner=request.user, post=post)
         if not created:
             obj.like = not obj.like
             obj.save()
@@ -49,10 +50,14 @@ class PostViewSet(viewsets.ModelViewSet):
                 Q(title__icontains=search) | Q(id__icontains=search) | Q(address__icontains=search))
         return queryset
 
+    def perform_create(self, serializer):
+        serializer.save(owner=self.request.user)
+
 
 class CommentListCreateView(generics.ListCreateAPIView):
     queryset = Comment.objects.all()
     serializer_class = serializers.CommentSerializer
+    pagination_class = CommentPagination
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
 
     def perform_create(self, serializer):
@@ -62,7 +67,6 @@ class CommentListCreateView(generics.ListCreateAPIView):
 class CommentDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Comment.objects.all()
     serializer_class = serializers.CommentSerializer
-    pagination_class = CommentPagination
     permission_classes = (IsOwnerOrReadOnly, permissions.IsAuthenticatedOrReadOnly)
 
 

@@ -16,7 +16,7 @@ class PostSerializer(serializers.ModelSerializer):
     class Meta:
         model = Post
         fields = ('id','title', 'description', 'owner', 'comments',
-                  'category', 'preview', 'quantity', 'address', 'phone', )
+                  'category', 'preview', 'quantity', 'address', 'phone', 'likes', )
 
     def validate(self, attrs):
         print(attrs)

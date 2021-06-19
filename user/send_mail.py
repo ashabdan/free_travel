@@ -6,7 +6,7 @@ def send_confirmation_email(user):
     full_link = f'http://localhost:8000/api/v1/accounts/activate/{code}'
     to_email = user.email
     send_mail(
-        'Subject here',
+        'Activation',
         full_link,
         'from@example.com',
         [to_email],
