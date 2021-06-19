@@ -50,5 +50,3 @@ class UserDetailView(generics.RetrieveAPIView):
     """Endpoint for details of single user"""
     queryset = CustomUser.objects.all()
     serializer_class = serializers.UserSerializer
-
-
